@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "django-home-work-3"
+version = "0.1.0"
+description = ""
+authors = ["artyom <artemaryj36119@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.1"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.4.0"
+ipython = "^8.28.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
