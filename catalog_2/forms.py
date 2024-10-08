@@ -7,9 +7,9 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        # exclude = ("photo",)
+        exclude = ("view_counter",)
         # fields = '__all__'
-        fields = ('name', 'number_version', 'name_version', 'photo', 'is_active')
+        # fields = ('name', 'number_version', 'name_version', 'photo', 'is_active')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

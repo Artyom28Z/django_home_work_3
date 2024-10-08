@@ -8,7 +8,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=50, verbose_name="Название продукта", help_text="Введите название продукта"
     )
-    number_version = models.IntegerField(verbose_name="Номер версии", help_text="Введите номер версии")
+    number_version = models.FloatField(verbose_name="Номер версии", help_text="Введите номер версии", unique=True)
     name_version = models.CharField(max_length=100, verbose_name="Название версии", help_text="Введите название версии")
     photo = models.ImageField(
         upload_to="articles_/photo",
