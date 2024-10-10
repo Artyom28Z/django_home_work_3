@@ -42,6 +42,10 @@ class Product(models.Model):
         verbose_name="Название продукта",
         help_text="Введите название продукта",
     )
+    description = models.CharField(
+        max_length=250, verbose_name="Описание", help_text="Введите описание продукта",
+        **NULLABLE
+    )
     photo = models.ImageField(
         upload_to="catalog_2/photo",
         verbose_name="Фото",
