@@ -52,6 +52,7 @@ class ProductUpdateView(UpdateView):
             context_data['formset'] = ProductFormset(self.request.POST, instance=self.object)
         else:
             context_data['formset'] = ProductFormset(instance=self.object)
+        return context_data
 
     def form_valid(self, form):
         context_data = self.get_context_data()
