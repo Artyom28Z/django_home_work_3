@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalog_2', '0002_alter_product_number_version'),
+        ("catalog_2", "0002_alter_product_number_version"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='product',
-            name='number_version',
-            field=models.FloatField(help_text='Введите номер версии', unique=True, verbose_name='Номер версии'),
+            model_name="product",
+            name="number_version",
+            field=models.FloatField(
+                help_text="Введите номер версии",
+                unique=True,
+                verbose_name="Номер версии",
+            ),
         ),
     ]
