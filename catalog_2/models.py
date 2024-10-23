@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 # Create your models here.
 NULLABLE = {"blank": True, "null": True}
 
@@ -58,6 +60,14 @@ class Product(models.Model):
 
     view_counter = models.PositiveIntegerField(
         verbose_name="Счётчик просмотров", help_text="Подсчёт просмотров", default=0
+    )
+
+    user = models.ForeignKey(
+        User,
+        verbose_name="Пользователь",
+        help_text="Укажите пользователя",
+        on_delete=models.SET_NULL,
+        **NULLABLE
     )
 
     def __str__(self):

@@ -1,11 +1,15 @@
 import secrets
+import string
+from random import random
 
+from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
-from users.forms import UserRegisterForm
+from catalog_2.forms import StyleFormMixin
+from users.forms import UserRegisterForm, ResetPasswordForm, UserProfileForm
 from users.models import User
 from config.settings import EMAIL_HOST_USER
 
@@ -39,3 +43,37 @@ def email_verification(request, token):
     user.is_active = True
     user.save()
     return redirect(reverse("users:login"))
+
+
+class UserResetPasswordView(PasswordResetView, StyleFormMixin):
+    form_class = ResetPasswordForm
+    template_name = 'users/reset_password.html'
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+
+        user = User.objects.get(email=email)
+
+        password = ''.join([random.choice(string.digits + string.ascii_letters) for i in range(0, 10)])
+        user.set_password(password)
+        user.is_active = True
+        user.save()
+        send_mail(
+            subject='Сброс пароля',
+            message=f'Новый пароль: {password}',
+            from_email=EMAIL_HOST_USER,
+            recipient_list=[user.email]
+        )
+        return redirect(reverse('users:login'))
+
+
+class ProfileView(UpdateView, StyleFormMixin):
+
+    model = User
+    form_class = UserProfileForm
+    template_name = 'users/user_profile.html'
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
