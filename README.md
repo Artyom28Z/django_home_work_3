@@ -5,8 +5,13 @@
 Еще для запуска проекта установите зависимости указанные в файле pyproject.toml
 
 Для создания суперпользователя введите в терминале: python manage.py csu
-
 Почта и пароль суперпользователя указаны в файле users/managment/cammands/csu.py
+
+Данные сохранены в трёх json-файлах.
+Для загрузки данных в БД введите в терминале три команды:
+python manage.py loaddata data.json
+python manage.py loaddata users.json
+python manage.py loaddata groups.json
 
 Проект настроен на регистрацию почты Яндекс.
 Для регистрации измените в файле config/settings следующие переменные:
