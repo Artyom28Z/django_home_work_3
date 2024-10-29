@@ -17,6 +17,12 @@ class StyleFormMixin:
                 field.widget.attrs["class"] = "form-class"
 
 
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ("description", "category", "is_active")
+
+
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product

@@ -6,6 +6,7 @@
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for product in object_list %}
+        {% if product.is_active %}
         <div class="col">
           <div class="card shadow-sm">
             <img src="{{ product.photo | media_filter }}">
@@ -24,8 +25,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a class="btn btn-primary" href="{% url 'catalog_2:product_detail' product.pk %}" role="button">Посмотреть</a>
-                  {% if product.user == user %}
+                  {% if perms.product.can_edit_description and perms.product.can_edit_category and perms.product.can_is_active or product.user == user %}
                   <a class="btn btn-success" href="{% url 'catalog_2:product_update' product.pk %}" role="button">Редактировать</a>
+                  {% endif %}
+                  {% if product.user == user %}
                   <a class="btn btn-danger" href="{% url 'catalog_2:product_delete' product.pk %}" role="button">Удалить</a>
                   {% endif %}
                 </div>
@@ -33,7 +36,7 @@
           </div>
         </div>
       </div>
-
+      {% endif %}
       {% endfor %}
     </div>
 </div>

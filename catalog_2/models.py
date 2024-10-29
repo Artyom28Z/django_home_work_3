@@ -6,14 +6,29 @@ from users.models import User
 NULLABLE = {"blank": True, "null": True}
 
 
+class Category(models.Model):
+    name = models.CharField(
+        max_length=50,
+        verbose_name="Название категории",
+        help_text="Введите название категории",
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+        ordering = ["name"]
+
+
 class Version(models.Model):
     product = models.ForeignKey(
         "Product",
         related_name="product",
         on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name="продукт",
+        verbose_name="Продукт",
+        **NULLABLE
     )
     number_version = models.FloatField(
         verbose_name="Номер версии", help_text="Введите номер версии", unique=True
@@ -55,18 +70,29 @@ class Product(models.Model):
         **NULLABLE
     )
     created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата создания статьи в базе данных"
+        auto_now_add=True, verbose_name="Дата создания продукта в базе данных"
     )
-
     view_counter = models.PositiveIntegerField(
         verbose_name="Счётчик просмотров", help_text="Подсчёт просмотров", default=0
     )
-
     user = models.ForeignKey(
         User,
         verbose_name="Пользователь",
         help_text="Укажите пользователя",
         on_delete=models.SET_NULL,
+        **NULLABLE
+    )
+    is_active = models.BooleanField(
+        verbose_name="Публикация",
+        help_text="Опубликовать или нет?",
+        default=False,
+    )
+    category = models.ForeignKey(
+        "Category",
+        related_name="category",
+        on_delete=models.SET_NULL,
+        help_text="Укажите категорию",
+        verbose_name="Категория",
         **NULLABLE
     )
 
@@ -77,3 +103,7 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name"]
+        permissions = [("can_edit_description", "Can edit description"),
+                       ("can_edit_category", "Can edit category"),
+                       ("can_edit_is_active", "Can edit is_active")
+                       ]

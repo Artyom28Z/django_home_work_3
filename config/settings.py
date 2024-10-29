@@ -146,8 +146,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "django.email.test@yandex.ru"
-EMAIL_HOST_PASSWORD = "vylqvwprdhnzyizl"
+EMAIL_HOST_USER = "test-django-email@yandex.ru"
+EMAIL_HOST_PASSWORD = "mkbqkwbxltywckcb"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 

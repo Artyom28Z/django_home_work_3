@@ -1,6 +1,6 @@
 import secrets
 import string
-from random import random
+import random
 
 from django.contrib.auth.views import PasswordResetView
 from django.core.mail import send_mail
@@ -53,19 +53,22 @@ class UserResetPasswordView(PasswordResetView, StyleFormMixin):
     def form_valid(self, form):
         email = form.cleaned_data['email']
 
-        user = User.objects.get(email=email)
-
-        password = ''.join([random.choice(string.digits + string.ascii_letters) for i in range(0, 10)])
-        user.set_password(password)
-        user.is_active = True
-        user.save()
-        send_mail(
-            subject='Сброс пароля',
-            message=f'Новый пароль: {password}',
-            from_email=EMAIL_HOST_USER,
-            recipient_list=[user.email]
-        )
-        return redirect(reverse('users:login'))
+        try:
+            user = User.objects.get(email=email)
+            if user:
+                password = ''.join([random.choice(string.digits + string.ascii_letters) for i in range(0, 10)])
+                user.set_password(password)
+                user.is_active = True
+                user.save()
+                send_mail(
+                    subject='Сброс пароля',
+                    message=f'Новый пароль: {password}',
+                    from_email=EMAIL_HOST_USER,
+                    recipient_list=[user.email]
+                )
+                return redirect(reverse('users:login'))
+        except User.DoesNotExist:
+            return redirect(reverse('users:register'))
 
 
 class ProfileView(UpdateView, StyleFormMixin):
