@@ -17,6 +17,9 @@
           <li><a href="{% url 'users:login' %}" class="text-white">Вход</a></li>
           <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
           {% endif %}
+          {% if user.is_superuser %}
+          <li><a href="{% url 'catalog_2:category_list' %}" class="text-white">Категории</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>

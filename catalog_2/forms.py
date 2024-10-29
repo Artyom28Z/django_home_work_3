@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import BooleanField
 
-from catalog_2.models import Product
+from catalog_2.models import Product, Category
 
 
 class StyleFormMixin:
@@ -21,6 +21,12 @@ class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = ("description", "category", "is_active")
+
+
+class CategoryForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = "__all__"
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):

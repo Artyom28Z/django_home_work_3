@@ -7,6 +7,8 @@ from catalog_2.views import (
     ProductCreateView,
     ProductUpdateView,
     ProductDeleteView,
+    CategoryCreateView,
+    CategoryListView,
 )
 
 app_name = Catalog2Config.name
@@ -18,5 +20,16 @@ urlpatterns = [
     path("create_product/", ProductCreateView.as_view(), name="product_create"),
     path("<int:pk>/update/", ProductUpdateView.as_view(), name="product_update"),
     path("<int:pk>/delete/", ProductDeleteView.as_view(), name="product_delete"),
+    path("create_category/", CategoryCreateView.as_view(), name="category_create"),
+    path("categories/", CategoryListView.as_view(), name="category_list"),
     path("contacts/", contacts, name="contacts"),
 ]
+
+
+# <div class="btn-group">
+#                   <a class="btn btn-primary" href="{% url 'catalog_2:product_detail' product.pk %}" role="button">Посмотреть</a>
+#                   {% if user.is_superuser %}
+#                   <a class="btn btn-success" href="{% url 'catalog_2:product_update' product.pk %}" role="button">Редактировать</a>
+#                   <a class="btn btn-danger" href="{% url 'catalog_2:product_delete' product.pk %}" role="button">Удалить</a>
+#                   {% endif %}
+#                 </div>

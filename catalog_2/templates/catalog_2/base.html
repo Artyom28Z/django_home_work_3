@@ -174,6 +174,9 @@
         {% if user.is_authenticated %}
         <a class="btn btn-primary" href="{% url 'catalog_2:product_create' %}" role="button">Добавить продукт</a>
         {% endif %}
+        {% if user.is_superuser %}
+        <a class="btn btn-success" href="{% url 'catalog_2:category_create' %}" role="button">Добавить категорию</a>
+        {% endif %}
       </div>
     </div>
   </section>

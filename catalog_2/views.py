@@ -12,8 +12,8 @@ from django.views.generic import (
     DeleteView,
 )
 
-from catalog_2.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog_2.models import Product, Version
+from catalog_2.forms import ProductForm, VersionForm, ProductModeratorForm, CategoryForm
+from catalog_2.models import Product, Version, Category
 
 
 # Create your views here.
@@ -100,6 +100,16 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
 class ProductDeleteView(DeleteView):
     model = Product
     success_url = reverse_lazy("catalog_2:product_list")
+
+
+class CategoryCreateView(CreateView, LoginRequiredMixin):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy("catalog_2:product_list")
+
+
+class CategoryListView(ListView):
+    model = Category
 
 
 class VersionCreateView(CreateView):
