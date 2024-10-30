@@ -12,7 +12,7 @@
             <img src="{{ product.photo | media_filter }}">
             <div class="card-body">
               <h2 class="card-title">{{ product.name }}</h2>
-              <p class="card-text">Пользователь: {{ product.user }}</p>
+              <p class="card-text">Пользователь: {{ product.user_product }}</p>
               <p class="card-text">Категория: {{ product.category }}</p>
               <p class="card-text">Описание: {{ product.description | truncatechars:100 }}</p>
               <div class="card-footer">
@@ -26,10 +26,10 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <a class="btn btn-primary" href="{% url 'catalog_2:product_detail' product.pk %}" role="button">Посмотреть</a>
-                  {% if perms.product.can_edit_description and perms.product.can_edit_category and perms.product.can_is_active or product.user == user %}
+                  {% if perms.product.can_edit_description and perms.product.can_edit_category and perms.product.can_is_active or user == product.user_product %}
                   <a class="btn btn-success" href="{% url 'catalog_2:product_update' product.pk %}" role="button">Редактировать</a>
                   {% endif %}
-                  {% if product.user == user %}
+                  {% if user == product.user_product %}
                   <a class="btn btn-danger" href="{% url 'catalog_2:product_delete' product.pk %}" role="button">Удалить</a>
                   {% endif %}
                 </div>

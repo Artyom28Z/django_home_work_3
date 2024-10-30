@@ -9,16 +9,16 @@
             <img src="{{ product.photo | media_filter }}">
             <div class="card-body mt-4 mb-4">
               <h2 class="card-title">{{ object.name }}</h2>
-              <p class="card-text">Пользователь: {{ object.user }}</p>
+              <p class="card-text">Пользователь: {{ object.user_product }}</p>
               <p class="card-text">Категория: {{ object.category }}</p>
               <p class="card-text">Описание: {{ object.description }}</p>
               <p class="card-text">Создан: {{ object.created_at }}<p>
               <p class="card-text">Просмотры: {{ object.view_counter }}</p>
               <div class="d-flex justify-content-between align-items-center">
-                {% if perms.product.can_edit_description and perms.product.can_edit_category and perms.product.can_is_active or product.user == user %}
+                {% if perms.object.can_edit_description and perms.object.can_edit_category and perms.object.can_is_active or user == object.user_product %}
                 <a class="btn btn-success" href="{% url 'catalog_2:product_update' product.pk %}" role="button">Редактировать</a>
                 {% endif %}
-                {% if object.user == user %}
+                {% if user == object.user_product %}
                 <a class="btn btn-danger" href="{% url 'catalog_2:product_delete' product.pk %}" role="button">Удалить</a>
                 {% endif %}
                 <div class="btn-group">

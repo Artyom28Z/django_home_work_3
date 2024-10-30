@@ -75,7 +75,7 @@ class Product(models.Model):
     view_counter = models.PositiveIntegerField(
         verbose_name="Счётчик просмотров", help_text="Подсчёт просмотров", default=0
     )
-    user = models.ForeignKey(
+    user_product = models.ForeignKey(
         User,
         verbose_name="Пользователь",
         help_text="Укажите пользователя",
