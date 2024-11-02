@@ -14,6 +14,7 @@ from django.views.generic import (
 
 from catalog_2.forms import ProductForm, VersionForm, ProductModeratorForm, CategoryForm
 from catalog_2.models import Product, Version, Category
+from catalog_2.services import get_category_from_cache
 
 
 # Create your views here.
@@ -109,6 +110,9 @@ class CategoryCreateView(CreateView, LoginRequiredMixin):
 
 class CategoryListView(ListView):
     model = Category
+
+    def get_queryset(self):
+        return get_category_from_cache()
 
 
 class VersionCreateView(CreateView):

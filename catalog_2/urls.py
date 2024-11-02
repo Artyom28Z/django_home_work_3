@@ -1,4 +1,6 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
+
 from catalog_2.apps import Catalog2Config
 from catalog_2.views import (
     contacts,
@@ -16,7 +18,7 @@ app_name = Catalog2Config.name
 
 urlpatterns = [
     path("", ProductListView.as_view(), name="product_list"),
-    path("<int:pk>/", ProductDetailView.as_view(), name="product_detail"),
+    path("<int:pk>/", cache_page(60)(ProductDetailView.as_view()), name="product_detail"),
     path("create_product/", ProductCreateView.as_view(), name="product_create"),
     path("<int:pk>/update/", ProductUpdateView.as_view(), name="product_update"),
     path("<int:pk>/delete/", ProductDeleteView.as_view(), name="product_delete"),
@@ -24,12 +26,3 @@ urlpatterns = [
     path("categories/", CategoryListView.as_view(), name="category_list"),
     path("contacts/", contacts, name="contacts"),
 ]
-
-
-# <div class="btn-group">
-#                   <a class="btn btn-primary" href="{% url 'catalog_2:product_detail' product.pk %}" role="button">Посмотреть</a>
-#                   {% if user.is_superuser %}
-#                   <a class="btn btn-success" href="{% url 'catalog_2:product_update' product.pk %}" role="button">Редактировать</a>
-#                   <a class="btn btn-danger" href="{% url 'catalog_2:product_delete' product.pk %}" role="button">Удалить</a>
-#                   {% endif %}
-#                 </div>
